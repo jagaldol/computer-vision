@@ -6,7 +6,7 @@ import numpy as np
 # Note: If you didn't launch Python from the same directory where you saved
 #       the file, chipmunk.png, you'll need to provide the full path name as
 #       the argument to Image.open
-im = Image.open('chipmunk.png')
+im = Image.open('./images/chipmunk.png')
 
 # display relevant Image class attributes: dimensions (width, height),
 # pixel format and file format
@@ -33,7 +33,7 @@ im = im.convert('L')
 im2 = im.crop((280,150,430,300))
 
 # save the selected region
-im2.save('chipmunk_head.png','PNG')
+im2.save('./result_images/chipmunk_head.png','PNG')
 
 # PIL and numpy use different internal representations
 # convert the image to a numpy array (for subsequent processing)
@@ -54,7 +54,7 @@ for x in range(0,150):
 
 # convert the result back to a PIL image and save
 im3 = Image.fromarray(im3_array)
-im3.save('chipmunk_head_bright.png','PNG')
+im3.save('./result_images/chipmunk_head_bright.png','PNG')
 
 # again make a copy of the (original) 100x100 sub-region
 im4_array = im2_array.copy()
@@ -68,7 +68,7 @@ im4_array = im4_array.astype('uint8')
 
 # convert the numpy array back to a PIL image and save
 im4 = Image.fromarray(im4_array)
-im4.save('chipmunk_head_dark.png','PNG')
+im4.save('./result_images/chipmunk_head_dark.png','PNG')
 
 # let's generate our own image, a simple gradient test pattern
 # make a 1-D array of length 256 with the values 0 - 255
@@ -79,4 +79,4 @@ grad = np.tile(grad,[256,1])
 
 # convert to uint8 and then to a PIL image and save
 im5 = Image.fromarray(grad.astype('uint8'))
-im5.save('gradient.png','PNG')
+im5.save('./result_images/gradient.png','PNG')

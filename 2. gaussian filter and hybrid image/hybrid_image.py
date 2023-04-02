@@ -83,7 +83,7 @@ print("gauss2d(1):", gauss2d(1))
 
 print("4.")
 fileName1 = '2b_dog.bmp'
-im = Image.open(fileName1)                  # 개 사진 불러오기
+im = Image.open('./images/' + fileName1)                  # 개 사진 불러오기
 print('open '+ fileName1)
 im.show()
 im = im.convert('L')                        # gray scale 변경
@@ -93,7 +93,7 @@ print('gaussconvolve2d to ' + fileName1 + '...')
 im = gaussconvolve2d(im, 3)                 # gaussian filter 적용 
 im = np.clip(im, 0, 255).astype(np.uint8)   # 0, 255로 값 제한 및 uint8로 변경
 im = Image.fromarray(im)                    # image로 변경
-im.save("dog_convolution.png", "PNG")       # 로컬에 저장
+im.save("./result_images/dog_convolution.png", "PNG")       # 로컬에 저장
 print("make dog_convolution.png")
 im.show()
 print()
@@ -103,7 +103,7 @@ print("Part 2: Hybrid Images")
 ## Hypbrid Images
 ### 1. Gaussian filtered low frequency image
 fileName2 = '2b_dog.bmp'                                  # 탑 사진 불러오기
-tower = Image.open(fileName2)
+tower = Image.open('./images/' + fileName2)
 print('open '+ fileName2)
 tower.show()
 tower = np.asarray(tower)
@@ -119,13 +119,13 @@ b = gaussconvolve2d(tower[:,:,2], sigma)
 tower = np.dstack([r, g, b])                                # rgb 채널 합침
 tower = np.clip(tower, 0, 255).astype(np.uint8)             # 0, 255로 값 제한 및 uint8로 변경
 towerImage = Image.fromarray(tower)
-towerImage.save("tower_blur.png", "PNG")                    # 결과 image 저장
-print("make tower_blur.png")
+towerImage.save("./result_images/blur_image.png", "PNG")                    # 결과 image 저장
+print("make blur.png")
 towerImage.show()
 
 
 fileName3 = '2a_cat.bmp'                                                             # eiffel 사진 불러오기
-eiffel = Image.open(fileName3)
+eiffel = Image.open('./images/' + fileName3)
 print('open '+ fileName3)
 eiffel.show()                                  
 eiffel = np.asarray(eiffel)
@@ -148,14 +148,14 @@ highFreqEiffel = np.clip(highFreqEiffel, -128, 127).astype(np.int16)            
 visulalizeHighFreqEiffel = highFreqEiffel + np.ones_like(highFreqEiffel) * 128          # 출력을 위해 128더해 0 ~ 255 값 가지게 변경
 visulalizeHighFreqEiffel = np.clip(visulalizeHighFreqEiffel, 0, 255).astype(np.uint8)   # 타입 uint8로 변경
 visulalizeHighFreqEiffel = Image.fromarray(visulalizeHighFreqEiffel)
-print("make tower_hig_freq.png")
-visulalizeHighFreqEiffel.save("tower_hig_freq.png", "PNG")                              # high frequency 결과 저장 및 확인
+print("make hig_freq_image.png")
+visulalizeHighFreqEiffel.save("./result_images/hig_freq_image.png", "PNG")                              # high frequency 결과 저장 및 확인
 
 visulalizeHighFreqEiffel.show()
 
 hybridImage = tower + highFreqEiffel                            # hybrid 이미지
 hybridImage = np.clip(hybridImage, 0, 255).astype(np.uint8)     # 0 ~ 255 제한 및 uint8 변경
 hybridImage = Image.fromarray(hybridImage)
-hybridImage.save("hybrid_eiffel_tower.png", "PNG")              # 이미지 저장 및 출력
-print("make hybrid_eiffel_tower.png")
+hybridImage.save("./result_images/hybrid_image.png", "PNG")              # 이미지 저장 및 출력
+print("make hybrid_image.png")
 hybridImage.show()
