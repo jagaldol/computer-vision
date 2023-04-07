@@ -14,6 +14,7 @@ def boxfilter(n):
     # n x n 의 array를 n x n으로 나눠 normalize
     return np.ones((n, n)) / (n * n)
 
+
 ### 2.gauss1d(sigma)
 def gauss1d(sigma):
     """
@@ -26,6 +27,7 @@ def gauss1d(sigma):
     gaussian = np.exp(-xs**2 / (2 * sigma ** 2))        # array에 gauss함수 적용
     return gaussian / np.sum(gaussian)                  # normalize하여 return
 
+
 ### 3. gauss2d(sigma)
 def gauss2d(sigma):
     """
@@ -33,6 +35,7 @@ def gauss2d(sigma):
     """
     gaussian1d = gauss1d(sigma)             # 1-D gaussian filter 생성
     return np.outer(gaussian1d, gaussian1d) # 1-D gaussian filter 외적으로 2-D gaussfitler 생성
+
 
 ### 4. convovle2d(array, filter)
 def convolve2d(array, filter):
@@ -67,95 +70,100 @@ def gaussconvolve2d(array, sigma):
     filter = gauss2d(sigma)             # gaussian filter 생성
     return convolve2d(array, filter)    # image array에 gaussian filter 적용
 
-print("part1: Gaussian Filtering")
-print("1.")
-print("boxfilter(3) :", boxfilter(3))
-print("boxfilter(4) will make assert error. Please check report.")
-print("boxfilter(7) :", boxfilter(7))
-print("2.")
-print("gauss1d(0.3):", gauss1d(0.3))
-print("gauss1d(0.5):", gauss1d(0.5))
-print("gauss1d(1):", gauss1d(1))
-print("gauss1d(2):", gauss1d(2))
-print("3.")
-print("gauss2d(0.5):", gauss2d(0.5))
-print("gauss2d(1):", gauss2d(1))
 
-print("4.")
-fileName1 = '2b_dog.bmp'
-im = Image.open('./images/' + fileName1)                  # 개 사진 불러오기
-print('open '+ fileName1)
-im.show()
-im = im.convert('L')                        # gray scale 변경
-im = np.asarray(im)                         # array로 변경
+def main():
+    print("part1: Gaussian Filtering")
+    print("1.")
+    print("boxfilter(3) :", boxfilter(3))
+    print("boxfilter(4) will make assert error. Please check report.")
+    print("boxfilter(7) :", boxfilter(7))
+    print("2.")
+    print("gauss1d(0.3):", gauss1d(0.3))
+    print("gauss1d(0.5):", gauss1d(0.5))
+    print("gauss1d(1):", gauss1d(1))
+    print("gauss1d(2):", gauss1d(2))
+    print("3.")
+    print("gauss2d(0.5):", gauss2d(0.5))
+    print("gauss2d(1):", gauss2d(1))
 
-print('gaussconvolve2d to ' + fileName1 + '...')
-im = gaussconvolve2d(im, 3)                 # gaussian filter 적용 
-im = np.clip(im, 0, 255).astype(np.uint8)   # 0, 255로 값 제한 및 uint8로 변경
-im = Image.fromarray(im)                    # image로 변경
-im.save("./result_images/dog_convolution.png", "PNG")       # 로컬에 저장
-print("make dog_convolution.png")
-im.show()
-print()
-print("===================================================")
-print()
-print("Part 2: Hybrid Images")
-## Hypbrid Images
-### 1. Gaussian filtered low frequency image
-fileName2 = '2b_dog.bmp'                                  # 탑 사진 불러오기
-tower = Image.open('./images/' + fileName2)
-print('open '+ fileName2)
-tower.show()
-tower = np.asarray(tower)
-sigma = 10
+    print("4.")
+    fileName1 = '2b_dog.bmp'
+    im = Image.open('./images/' + fileName1)                  # 개 사진 불러오기
+    print('open '+ fileName1)
+    im.show()
+    im = im.convert('L')                        # gray scale 변경
+    im = np.asarray(im)                         # array로 변경
 
-print('gaussconvolve2d to ' + fileName2 + ' r channel ...')
-r = gaussconvolve2d(tower[:,:,0], sigma)                    # 각 rgb 채널에 gaussian filter 적용
-print('gaussconvolve2d to ' + fileName2 + ' g channel ...')
-g = gaussconvolve2d(tower[:,:,1], sigma)
-print('gaussconvolve2d to ' + fileName2 + ' b channel ...')
-b = gaussconvolve2d(tower[:,:,2], sigma)
+    print('gaussconvolve2d to ' + fileName1 + '...')
+    im = gaussconvolve2d(im, 3)                 # gaussian filter 적용 
+    im = np.clip(im, 0, 255).astype(np.uint8)   # 0, 255로 값 제한 및 uint8로 변경
+    im = Image.fromarray(im)                    # image로 변경
+    im.save("./result_images/dog_convolution.png", "PNG")       # 로컬에 저장
+    print("make dog_convolution.png")
+    im.show()
+    print()
+    print("===================================================")
+    print()
+    print("Part 2: Hybrid Images")
+    ## Hypbrid Images
+    ### 1. Gaussian filtered low frequency image
+    fileName2 = '2b_dog.bmp'                                  # 탑 사진 불러오기
+    tower = Image.open('./images/' + fileName2)
+    print('open '+ fileName2)
+    tower.show()
+    tower = np.asarray(tower)
+    sigma = 10
 
-tower = np.dstack([r, g, b])                                # rgb 채널 합침
-tower = np.clip(tower, 0, 255).astype(np.uint8)             # 0, 255로 값 제한 및 uint8로 변경
-towerImage = Image.fromarray(tower)
-towerImage.save("./result_images/blur_image.png", "PNG")                    # 결과 image 저장
-print("make blur.png")
-towerImage.show()
+    print('gaussconvolve2d to ' + fileName2 + ' r channel ...')
+    r = gaussconvolve2d(tower[:,:,0], sigma)                    # 각 rgb 채널에 gaussian filter 적용
+    print('gaussconvolve2d to ' + fileName2 + ' g channel ...')
+    g = gaussconvolve2d(tower[:,:,1], sigma)
+    print('gaussconvolve2d to ' + fileName2 + ' b channel ...')
+    b = gaussconvolve2d(tower[:,:,2], sigma)
+
+    tower = np.dstack([r, g, b])                                # rgb 채널 합침
+    tower = np.clip(tower, 0, 255).astype(np.uint8)             # 0, 255로 값 제한 및 uint8로 변경
+    towerImage = Image.fromarray(tower)
+    towerImage.save("./result_images/blur_image.png", "PNG")                    # 결과 image 저장
+    print("make blur.png")
+    towerImage.show()
 
 
-fileName3 = '2a_cat.bmp'                                                             # eiffel 사진 불러오기
-eiffel = Image.open('./images/' + fileName3)
-print('open '+ fileName3)
-eiffel.show()                                  
-eiffel = np.asarray(eiffel)
-sigma = 10
+    fileName3 = '2a_cat.bmp'                                                             # eiffel 사진 불러오기
+    eiffel = Image.open('./images/' + fileName3)
+    print('open '+ fileName3)
+    eiffel.show()                                  
+    eiffel = np.asarray(eiffel)
+    sigma = 10
 
-print('gaussconvolve2d to ' + fileName3 + ' r channel ...')
-r = gaussconvolve2d(eiffel[:,:,0], sigma)                                               # 각 rgb 채널에 gaussian filter 적용
-print('gaussconvolve2d to ' + fileName3 + ' g channel ...')
-g = gaussconvolve2d(eiffel[:,:,1], sigma)
-print('gaussconvolve2d to ' + fileName3 + ' b channel ...')
-b = gaussconvolve2d(eiffel[:,:,2], sigma)
+    print('gaussconvolve2d to ' + fileName3 + ' r channel ...')
+    r = gaussconvolve2d(eiffel[:,:,0], sigma)                                               # 각 rgb 채널에 gaussian filter 적용
+    print('gaussconvolve2d to ' + fileName3 + ' g channel ...')
+    g = gaussconvolve2d(eiffel[:,:,1], sigma)
+    print('gaussconvolve2d to ' + fileName3 + ' b channel ...')
+    b = gaussconvolve2d(eiffel[:,:,2], sigma)
 
-blurredEiffel = np.dstack([r, g, b])                                                    # rgb 채널 합침
-blurredEiffel = np.clip(blurredEiffel, 0, 255).astype(np.int16)                         # uint시 값 뺐을 때 overflow 될 수 있기에 int로 타입 지정
+    blurredEiffel = np.dstack([r, g, b])                                                    # rgb 채널 합침
+    blurredEiffel = np.clip(blurredEiffel, 0, 255).astype(np.int16)                         # uint시 값 뺐을 때 overflow 될 수 있기에 int로 타입 지정
 
-highFreqEiffel = eiffel - blurredEiffel                                                 # 원본 - blur 이미지로 high frequency 이미지 생성
+    highFreqEiffel = eiffel - blurredEiffel                                                 # 원본 - blur 이미지로 high frequency 이미지 생성
 
-highFreqEiffel = np.clip(highFreqEiffel, -128, 127).astype(np.int16)                    # -128에서 127로 제한
+    highFreqEiffel = np.clip(highFreqEiffel, -128, 127).astype(np.int16)                    # -128에서 127로 제한
 
-visulalizeHighFreqEiffel = highFreqEiffel + np.ones_like(highFreqEiffel) * 128          # 출력을 위해 128더해 0 ~ 255 값 가지게 변경
-visulalizeHighFreqEiffel = np.clip(visulalizeHighFreqEiffel, 0, 255).astype(np.uint8)   # 타입 uint8로 변경
-visulalizeHighFreqEiffel = Image.fromarray(visulalizeHighFreqEiffel)
-print("make hig_freq_image.png")
-visulalizeHighFreqEiffel.save("./result_images/hig_freq_image.png", "PNG")                              # high frequency 결과 저장 및 확인
+    visulalizeHighFreqEiffel = highFreqEiffel + np.ones_like(highFreqEiffel) * 128          # 출력을 위해 128더해 0 ~ 255 값 가지게 변경
+    visulalizeHighFreqEiffel = np.clip(visulalizeHighFreqEiffel, 0, 255).astype(np.uint8)   # 타입 uint8로 변경
+    visulalizeHighFreqEiffel = Image.fromarray(visulalizeHighFreqEiffel)
+    print("make high_freq_image.png")
+    visulalizeHighFreqEiffel.save("./result_images/high_freq_image.png", "PNG")                              # high frequency 결과 저장 및 확인
 
-visulalizeHighFreqEiffel.show()
+    visulalizeHighFreqEiffel.show()
 
-hybridImage = tower + highFreqEiffel                            # hybrid 이미지
-hybridImage = np.clip(hybridImage, 0, 255).astype(np.uint8)     # 0 ~ 255 제한 및 uint8 변경
-hybridImage = Image.fromarray(hybridImage)
-hybridImage.save("./result_images/hybrid_image.png", "PNG")              # 이미지 저장 및 출력
-print("make hybrid_image.png")
-hybridImage.show()
+    hybridImage = tower + highFreqEiffel                            # hybrid 이미지
+    hybridImage = np.clip(hybridImage, 0, 255).astype(np.uint8)     # 0 ~ 255 제한 및 uint8 변경
+    hybridImage = Image.fromarray(hybridImage)
+    hybridImage.save("./result_images/hybrid_image.png", "PNG")              # 이미지 저장 및 출력
+    print("make hybrid_image.png")
+    hybridImage.show()
+
+
+main()
