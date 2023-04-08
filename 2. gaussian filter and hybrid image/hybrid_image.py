@@ -108,57 +108,57 @@ def main():
     ## Hypbrid Images
     ### 1. Gaussian filtered low frequency image
     fileName2 = '2b_dog.bmp'                                  # 탑 사진 불러오기
-    tower = Image.open('./images/' + fileName2)
+    blur = Image.open('./images/' + fileName2)
     print('open '+ fileName2)
-    tower.show()
-    tower = np.asarray(tower)
+    blur.show()
+    blur = np.asarray(blur)
     sigma = 10
 
     print('gaussconvolve2d to ' + fileName2 + ' r channel ...')
-    r = gaussconvolve2d(tower[:,:,0], sigma)                    # 각 rgb 채널에 gaussian filter 적용
+    r = gaussconvolve2d(blur[:,:,0], sigma)                    # 각 rgb 채널에 gaussian filter 적용
     print('gaussconvolve2d to ' + fileName2 + ' g channel ...')
-    g = gaussconvolve2d(tower[:,:,1], sigma)
+    g = gaussconvolve2d(blur[:,:,1], sigma)
     print('gaussconvolve2d to ' + fileName2 + ' b channel ...')
-    b = gaussconvolve2d(tower[:,:,2], sigma)
+    b = gaussconvolve2d(blur[:,:,2], sigma)
 
-    tower = np.dstack([r, g, b])                                # rgb 채널 합침
-    tower = np.clip(tower, 0, 255).astype(np.uint8)             # 0, 255로 값 제한 및 uint8로 변경
-    towerImage = Image.fromarray(tower)
-    towerImage.save("./result_images/blur_image.png", "PNG")                    # 결과 image 저장
+    blur = np.dstack([r, g, b])                                # rgb 채널 합침
+    blur = np.clip(blur, 0, 255).astype(np.uint8)             # 0, 255로 값 제한 및 uint8로 변경
+    blurImage = Image.fromarray(blur)
+    blurImage.save("./result_images/blur_image.png", "PNG")                    # 결과 image 저장
     print("make blur.png")
-    towerImage.show()
+    blurImage.show()
 
 
-    fileName3 = '2a_cat.bmp'                                                             # eiffel 사진 불러오기
-    eiffel = Image.open('./images/' + fileName3)
+    fileName3 = '2a_cat.bmp'                                                             # sharpen 사진 불러오기
+    sharpen = Image.open('./images/' + fileName3)
     print('open '+ fileName3)
-    eiffel.show()                                  
-    eiffel = np.asarray(eiffel)
+    sharpen.show()                                  
+    sharpen = np.asarray(sharpen)
     sigma = 10
 
     print('gaussconvolve2d to ' + fileName3 + ' r channel ...')
-    r = gaussconvolve2d(eiffel[:,:,0], sigma)                                               # 각 rgb 채널에 gaussian filter 적용
+    r = gaussconvolve2d(sharpen[:,:,0], sigma)                                               # 각 rgb 채널에 gaussian filter 적용
     print('gaussconvolve2d to ' + fileName3 + ' g channel ...')
-    g = gaussconvolve2d(eiffel[:,:,1], sigma)
+    g = gaussconvolve2d(sharpen[:,:,1], sigma)
     print('gaussconvolve2d to ' + fileName3 + ' b channel ...')
-    b = gaussconvolve2d(eiffel[:,:,2], sigma)
+    b = gaussconvolve2d(sharpen[:,:,2], sigma)
 
-    blurredEiffel = np.dstack([r, g, b])                                                    # rgb 채널 합침
-    blurredEiffel = np.clip(blurredEiffel, 0, 255).astype(np.int16)                         # uint시 값 뺐을 때 overflow 될 수 있기에 int로 타입 지정
+    blurredSharpen = np.dstack([r, g, b])                                                    # rgb 채널 합침
+    blurredSharpen = np.clip(blurredSharpen, 0, 255).astype(np.int16)                         # uint시 값 뺐을 때 overflow 될 수 있기에 int로 타입 지정
 
-    highFreqEiffel = eiffel - blurredEiffel                                                 # 원본 - blur 이미지로 high frequency 이미지 생성
+    highFreqSharpen = sharpen - blurredSharpen                                                 # 원본 - blur 이미지로 high frequency 이미지 생성
 
-    highFreqEiffel = np.clip(highFreqEiffel, -128, 127).astype(np.int16)                    # -128에서 127로 제한
+    highFreqSharpen = np.clip(highFreqSharpen, -128, 127).astype(np.int16)                    # -128에서 127로 제한
 
-    visulalizeHighFreqEiffel = highFreqEiffel + np.ones_like(highFreqEiffel) * 128          # 출력을 위해 128더해 0 ~ 255 값 가지게 변경
-    visulalizeHighFreqEiffel = np.clip(visulalizeHighFreqEiffel, 0, 255).astype(np.uint8)   # 타입 uint8로 변경
-    visulalizeHighFreqEiffel = Image.fromarray(visulalizeHighFreqEiffel)
+    visulalizeHighFreqSharpen = highFreqSharpen + np.ones_like(highFreqSharpen) * 128          # 출력을 위해 128더해 0 ~ 255 값 가지게 변경
+    visulalizeHighFreqSharpen = np.clip(visulalizeHighFreqSharpen, 0, 255).astype(np.uint8)   # 타입 uint8로 변경
+    visulalizeHighFreqSharpen = Image.fromarray(visulalizeHighFreqSharpen)
     print("make high_freq_image.png")
-    visulalizeHighFreqEiffel.save("./result_images/high_freq_image.png", "PNG")                              # high frequency 결과 저장 및 확인
+    visulalizeHighFreqSharpen.save("./result_images/high_freq_image.png", "PNG")                              # high frequency 결과 저장 및 확인
 
-    visulalizeHighFreqEiffel.show()
+    visulalizeHighFreqSharpen.show()
 
-    hybridImage = tower + highFreqEiffel                            # hybrid 이미지
+    hybridImage = blur + highFreqSharpen                            # hybrid 이미지
     hybridImage = np.clip(hybridImage, 0, 255).astype(np.uint8)     # 0 ~ 255 제한 및 uint8 변경
     hybridImage = Image.fromarray(hybridImage)
     hybridImage.save("./result_images/hybrid_image.png", "PNG")              # 이미지 저장 및 출력
