@@ -17,3 +17,19 @@ $ start_venv.bat
 ```shell
 $ pip install -r requirements.txt
 ```
+
+## Structure
+```
+computer-vision
+├── {each lab}                      # Directory for each lab
+|  ├── images
+|  |  └── *                         # Image files required for the lab
+|  ├── result_images
+|  |  └── *                         # Image files created by the lab
+|  ├── Lab Description and Report
+|  |  └── [REPORT]*.pdf             # lab report pdf
+|  |  └── description.pdf           $ lab description pdf
+|  ├── *.py                         # lab with python code
+|  └── *.ipynb                      # lab with jupyter notebook
+├── ...
+```
