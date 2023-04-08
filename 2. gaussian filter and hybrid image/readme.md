@@ -5,7 +5,7 @@ aligned images를 각각 low frequency와 high frequency로 filtering하여 두 
 만들어진 hybrid Image는 크게 보았을 때 high frequency 이미지가 강조되고, 작게 보았을 때 low frequency로 만든 이미지가 강조된다.
 
 <p align="center">
-    <img src="./result_images/hybrid_image.png?raw=true" />
+    <img src="./result_images/hybrid_image.png?raw=true" width="60%" />
     <img src="./result_images/hybrid_image.png?raw=true" width="10%" />
 </p>
 <p align="center">최종 hybrid 이미지(좌우 같은 이미지)</p>
@@ -117,7 +117,7 @@ aligned images를 각각 low frequency와 high frequency로 filtering하여 두 
 
     3. 두 이미지 합치기  
         <p align="center">
-            <img src="./result_images/hybrid_image.png?raw=true" />
+            <img src="./result_images/hybrid_image.png?raw=true" width="60%" />
             <img src="./result_images/hybrid_image.png?raw=true" width="10%" />
         </p>
         <p align="center">최종 hybrid 이미지(좌우 같은 이미지)</p>
