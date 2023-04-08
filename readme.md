@@ -8,6 +8,8 @@
 * [canny edge detection](https://github.com/jagaldol/computer-vision-4-1/tree/main/3.%20canny%20edge%20detection)
 
 ## Installation
+> using python 3.11.2
+
 ### set python virtual environment
 * Linux  
     ```sh
