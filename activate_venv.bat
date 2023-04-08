@@ -5,5 +5,5 @@ if not exist .venv (
 )
 echo start virtual environment
 
-.venv\Scripts\activate
+call .venv\Scripts\activate
  

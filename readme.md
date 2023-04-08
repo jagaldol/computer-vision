@@ -9,13 +9,20 @@
 
 ## Installation
 ### set python virtual environment
-```shell
-$ start_venv.bat
-(venv) $ pip install -r requirements.txt
-```
+* Linux  
+    ```sh
+    $ activate_venv.sh
+    (.venv) $
+    ```
+* Windows  
+    ```cmd
+    > activate_venv.bat
+    (.venv) >
+    ```
+
 ### install packages
 ```shell
-$ pip install -r requirements.txt
+(venv) $ pip install -r requirements.txt
 ```
 
 ## Structure
