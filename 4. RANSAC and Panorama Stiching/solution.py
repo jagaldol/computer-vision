@@ -30,7 +30,29 @@ def RANSACFilter(
     assert isinstance(orient_agreement, float)
     assert isinstance(scale_agreement, float)
     ## START
-
+    largest_set = []
+    orient_agreement = orient_agreement / 180 * math.pi
+    for i in range(10) : # repeat 10 times
+        rand = random.randrange(0, len(matched_pairs)) # generate random number
+        choice = matched_pairs[rand]
+        orientation = (keypoints1[choice[0]][3] - keypoints2[choice[1]][3]) % (2 * math.pi) # calculation first-orientation
+        scale = keypoints2[choice[1]][2] / keypoints1[choice[0]][2] # clacualation first-scale ratio
+        temp = []
+        for j in range(len(matched_pairs)): # calculate the number of all cases
+            if j is not rand:
+                # calculation second-orientation
+                orientation_temp = (keypoints1[matched_pairs[j][0]][3] - keypoints2[matched_pairs[j][1]][3]) % (2 * math.pi)
+                # calculation second-scale ratio
+                scale_temp = keypoints2[matched_pairs[j][1]][2] / keypoints1[matched_pairs[j][0]][2]
+                # check degree error
+                if ((orientation-orient_agreement) < orientation_temp) and (orientation_temp < (orientation + orient_agreement)):
+                    # check sacle error
+                    if((scale - scale * scale_agreement < scale_temp) and (scale_temp < scale + scale * scale_agreement)):
+                        temp.append([i, j])
+        if len(temp) > len(largest_set): # choice best match
+            largest_set = temp
+    for i in range(len(largest_set)):
+        largest_set[i] = (matched_pairs[largest_set[i][1]][0], matched_pairs[largest_set[i][1]][1])
 
     ## END
     assert isinstance(largest_set, list)
@@ -68,7 +90,7 @@ def FindBestMatches(descriptors1, descriptors2, threshold):
             temp[j] = math.acos(np.dot(descriptors1[i], descriptors2[j])) # calculate the number of all cases
         compare = sorted(range(len(temp)), key = lambda k : temp[k]) # comparison to find the best
         if (temp[compare[0]] / temp[compare[1]]) < threshold: # check the best match
-            matched_pairs.append([i, compare[0]])
+            matched_pairs.append([i, compare[0]]) # best match | i = descriptors1 | j = descriptors2
     ## END
     return matched_pairs
 
