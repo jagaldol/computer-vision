@@ -31,7 +31,7 @@ def MatchRANSAC(
     matched_pairs = [
         [keypoints1[i], keypoints2[j]] for (i, j) in matched_pairs]
     assert len(matched_pairs) > 0, "No match received"
-    im3 = DisplayMatches(im1, im2, matched_pairs)
+    im3 = DisplayMatches(im1, im2, matched_pairs, "matchRANSAC.png")
     return im3
 
 
@@ -50,7 +50,7 @@ def Match(image1, image2, ratio_thres):
     matched_pairs = [
         [keypoints1[i], keypoints2[j]] for (i, j) in matched_pairs]
     assert len(matched_pairs) > 0, "No match received"
-    im3 = DisplayMatches(im1, im2, matched_pairs)
+    im3 = DisplayMatches(im1, im2, matched_pairs, "match.png")
     return im3
 
 
@@ -116,7 +116,7 @@ def AppendImages(im1, im2):
     im3.paste(im2,(im1cols,0))
     return im3
 
-def DisplayMatches(im1, im2, matched_pairs):
+def DisplayMatches(im1, im2, matched_pairs, save_file):
     """Display matches on a new image with the two input images placed side by side.
 
     Arguments:
@@ -132,6 +132,7 @@ def DisplayMatches(im1, im2, matched_pairs):
     for match in matched_pairs:
         draw.line((match[0][1], match[0][0], offset+match[1][1], match[1][0]),fill="red",width=2)
     im3.show()
+    im3.save("result_images/" + save_file, "PNG")
     return im3
 
 
