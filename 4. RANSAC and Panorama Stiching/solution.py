@@ -58,8 +58,17 @@ def FindBestMatches(descriptors1, descriptors2, threshold):
     assert isinstance(threshold, float)
     ## START
     ## the following is just a placeholder to show you the output format
-    num = 5
-    matched_pairs = [[i, i] for i in range(num)]
+    y1 = descriptors1.shape[0] # save descriptors1 size
+    y2 = descriptors2.shape[0] # save descriptors2 size
+    temp = np.zeros(y2) # make an array of descriptors2 size
+    matched_pairs = []
+
+    for i in range(y1):
+        for j in range(y2):
+            temp[j] = math.acos(np.dot(descriptors1[i], descriptors2[j])) # calculate the number of all cases
+        compare = sorted(range(len(temp)), key = lambda k : temp[k]) # comparison to find the best
+        if (temp[compare[0]] / temp[compare[1]]) < threshold: # check the best match
+            matched_pairs.append([i, compare[0]])
     ## END
     return matched_pairs
 
