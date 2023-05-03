@@ -2,7 +2,7 @@ from PIL import Image
 import numpy as np
 import pickle as pkl
 import sys
-import hw_utils as utils
+import utils
 import solution as sol
 
 
