@@ -112,6 +112,16 @@ def KeypointProjection(xy_points, h):
     assert h.shape == (3, 3)
 
     # START
+    # Make homogeneous
+    xy_points_hg = np.append(xy_points, np.ones((xy_points.shape[0], 1)), axis=1)
+    # Apply h matrix
+    xy_points_proj = h.dot(xy_points_hg.T).T
+    # Avoid Divide By Zero
+    is_zero_points = xy_points_proj[:, 2] == 0
+    xy_points_proj[is_zero_points, 2] = 1e-10
+
+    # Return to Regular Coordinate
+    xy_points_out = xy_points_proj[:, :2] / xy_points_proj[:, 2:]
 
     # END
     return xy_points_out

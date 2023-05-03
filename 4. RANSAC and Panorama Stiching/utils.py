@@ -314,7 +314,7 @@ def VisualizePointProj(xy_src, xy_ref, xy_proj, im_src, im_ref):
     assert xy_src.shape == xy_proj.shape
 
     fig, axes = plt.subplots(
-        1, 2, figsize=(30, 30), gridspec_kw={'width_ratios': [1, 2]})
+        1, 2, figsize=(10, 5), gridspec_kw={'width_ratios': [1, 2]})
     for xy_a, xy_b in zip(xy_proj, xy_ref):
         x1, y1 = xy_a
         x2, y2 = xy_b
