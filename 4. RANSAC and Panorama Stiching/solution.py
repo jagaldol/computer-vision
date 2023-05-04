@@ -45,7 +45,7 @@ def RANSACFilter(
                 # calculation second-scale ratio
                 scale_temp = keypoints2[matched_pairs[j][1]][2] / keypoints1[matched_pairs[j][0]][2]
                 # check degree error
-                if ((orientation-orient_agreement) < orientation_temp) and (orientation_temp < (orientation + orient_agreement)):
+                if (abs(orientation - orientation_temp) < orient_agreement) or (abs(orientation - orientation_temp) > (2 * math.pi) - orient_agreement):
                     # check sacle error
                     if((scale - scale * scale_agreement < scale_temp) and (scale_temp < scale + scale * scale_agreement)):
                         temp.append([i, j])
