@@ -83,8 +83,8 @@ def main2():
                 num_iter, tol, figsize=(10, 10))
 
 def main3():
-    canvas_height = 1200
-    canvas_width = 1600
+    canvas_height = 1300
+    canvas_width = 2500
     image_list = ['irving_out3', 'irving_out6', 'irving_out5']
 
     num_iter = 50
