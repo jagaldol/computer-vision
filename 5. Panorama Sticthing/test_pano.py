@@ -49,7 +49,7 @@ def main():
     result = utils.MergeWarppedImages(canvas_height, canvas_width, warp_list)
 
     # plot the result of the warping
-    plt.figure(figsize=(20, 20))
+    plt.figure(figsize=(10, 5))
     plt.imshow(result)
     plt.show()
 
