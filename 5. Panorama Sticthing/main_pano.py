@@ -50,11 +50,11 @@ def main():
     image_list = ['Rainier1', 'Rainier2', 'Rainier3','Rainier4','Rainier5','Rainier6']
 
     num_iter = 50
-    tol = 10
-    ratio_thres = 0.9
+    tol = 1
+    ratio_thres = 0.2
     image_list = [op.join(path, im) for im in image_list]
     create_pano(image_list, ratio_thres, canvas_height, canvas_width,
-                num_iter, tol, figsize=(20, 20))
+                num_iter, tol, figsize=(10, 10))
 
 if __name__ == '__main__':
     main()

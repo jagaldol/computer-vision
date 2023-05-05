@@ -122,7 +122,6 @@ def KeypointProjection(xy_points, h):
 
     # Return to Regular Coordinate
     xy_points_out = xy_points_proj[:, :2] / xy_points_proj[:, 2:]
-
     # END
     return xy_points_out
 
@@ -154,9 +153,35 @@ def RANSACHomography(xy_src, xy_ref, num_iter, tol):
     tol = tol*1.0
 
     # START
+    inliers_num_best = 0
+    h = None
+    for _ in range(num_iter):
+        # Sample 4 matches
+        # rand_4 = random.sample(range(len(xy_src)), k=4)
+        rand_4 = [random.randint(0,xy_src.shape[0]-1) for _ in range(4)]
+        A = []
+        for rand in rand_4:
+            x, y = xy_src[rand]
+            
+            x_p, y_p = xy_ref[rand]            
+            A.append([x, y, 1, 0, 0, 0, -x_p*x, -x_p*y, -x_p])
+            A.append([0, 0, 0, x, y, 1, -y_p*x, -y_p*y, -y_p])
 
-
-
+        A = np.array(A)
+        # Calculate Homography Matrix
+    
+        eig_val, eig_vec = np.linalg.eig(A.T.dot(A))
+        min_index = eig_val.argmin()
+        homography = np.array(eig_vec[:, min_index]).reshape((3, 3))
+        # Move src points into ref space
+        xy_out = KeypointProjection(xy_src, homography)
+        # Calculate distance
+        dists = np.sqrt(np.sum((xy_out - xy_ref)**2, axis=1))
+        # Calculate inliers Num
+        inliers_num = np.count_nonzero(dists <= tol)
+        if inliers_num > inliers_num_best:
+            h = homography
+            inliers_num_best = inliers_num
     # END
     assert isinstance(h, np.ndarray)
     assert h.shape == (3, 3)
