@@ -2,6 +2,7 @@ import sys
 import numpy as np
 import matplotlib.pyplot as plt
 import os.path as op
+from PIL import Image
 sys.path = ['../lib'] + sys.path
 import utils
 path = './data/'
@@ -38,6 +39,7 @@ def create_pano(
     result = utils.MergeWarppedImages(
         canvas_height, canvas_width, wrap_list)
 
+    Image.fromarray(result).save("./result_images/panorama.png", 'PNG')
     # show the final panorama
     plt.figure(figsize=figsize)
     plt.imshow(result)
