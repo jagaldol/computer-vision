@@ -68,6 +68,30 @@ def main1():
     create_pano(image_list, ratio_thres, canvas_height, canvas_width,
                 num_iter, tol, figsize=(10, 10))
 
+def main2():
+    canvas_height = 1200
+    canvas_width = 1600
+    image_list = ['garden0', 'garden3', 'garden4']
+
+    num_iter = 50
+    tol = 3
+    ratio_thres = 0.7
+    image_list = [op.join(path, im) for im in image_list]
+    create_pano(image_list, ratio_thres, canvas_height, canvas_width,
+                num_iter, tol, figsize=(10, 10))
+
+def main3():
+    canvas_height = 1200
+    canvas_width = 1600
+    image_list = ['irving_out3', 'irving_out6', 'irving_out5']
+
+    num_iter = 50
+    tol = 3
+    ratio_thres = 0.7
+    image_list = [op.join(path, im) for im in image_list]
+    create_pano(image_list, ratio_thres, canvas_height, canvas_width,
+                num_iter, tol, figsize=(10, 10))
+    
 if __name__ == '__main__':
-    main1()
+    main3()
 
