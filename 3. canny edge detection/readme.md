@@ -41,13 +41,9 @@ intensity value가 변하는 지점을 edge라고 간주할 수 있다. Canny ed
     x, y 방향에서의 gradient, Ix와 Iy를 얻고, 이를 통해 gradient의 크기와 방향을 얻을 수 있다.
 
     * **gradient magitude**  
-        $$
-        ||\nabla f|| = \sqrt{{I_x}^2 + {I_y}^2}
-        $$
+        $||\nabla f|| = \sqrt{{I_x}^2 + {I_y}^2}$
     * **gradient orientation**  
-        $$
-        \theta = tan^{-1}(I_x/I_y)
-        $$
+        $\theta = tan^{-1}(I_x/I_y)$
 
     이는 python의 `NumPy.hypot()`와 `NumPy.arctan2()`를 사용하여 간단하게 구현 할 수 있다.
     ```python
@@ -87,11 +83,9 @@ intensity value가 변하는 지점을 edge라고 간주할 수 있다. Canny ed
         <img src="./result_images/double_thresholding.png?raw=true" />
     </p>
 
-    $$
-    diff = max(image) - min(image)\\
-    T_{high} = min(image) + diff \times 0.15\\
-    T_{low} = min(image) + diff \times 0.03
-    $$
+    - $diff = max(image) - min(image)$
+    - $T_{high} = min(image) + diff \times 0.15$
+    - $T_{low} = min(image) + diff \times 0.03$
 
     $T_{high}$이상이면 strong edge(value: 255), $T_{low}$이하면 weak edge(value: 80)으로 만들고 나머지는 0으로 없앤다.
 
