@@ -8,6 +8,7 @@
 * [canny edge detection](https://github.com/jagaldol/computer-vision-4-1/tree/main/3.%20canny%20edge%20detection)
 * [RANSAC](https://github.com/jagaldol/computer-vision-4-1/tree/main/4.%20RANSAC)
 * [Panorama Stitching](https://github.com/jagaldol/computer-vision-4-1/tree/main/5.%20Panorama%20Sticthing)
+* [Epipolar Geometry](https://github.com/jagaldol/computer-vision-4-1/tree/main/6.%20Epipolar%20Geometry)
 
 ## Installation
 > using python 3.11.2
