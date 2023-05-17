@@ -21,7 +21,7 @@ RANSAC은 RANdom SAmple Comsesus의 약자로, 여러 개에서 일부분의 샘
 2. Image descriptors RANSAC Matching
 
 ## Process
-1. Image descriptors Matching
+1. Image descriptors Matching  
     각 이미지의 keypoints와 descriptors들은 이미지와 함께 개별 파일로 존재한다.
     - 이미지 파일 : data/some_image.pgm
     - keypoints와 descriptors 파일 : data/some_image.key
@@ -46,7 +46,7 @@ RANSAC은 RANdom SAmple Comsesus의 약자로, 여러 개에서 일부분의 샘
 
     RANSAC을 거치지 않아 잘못된 지점을 매칭한 것을 확인할 수 있다.
 
-2. Image descriptors RANSAC Matching
+2. Image descriptors RANSAC Matching  
     RANSAC 매칭을 추가한다. 이번 lab에서는 homography를 사용하지 않고 간단하게 방향과 크기를 통하여 match를 판별한다.
 
     
