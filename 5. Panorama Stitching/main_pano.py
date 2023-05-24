@@ -95,5 +95,5 @@ def main3():
                 num_iter, tol, figsize=(10, 10))
     
 if __name__ == '__main__':
-    main3()
+    main()
 
