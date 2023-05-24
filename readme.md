@@ -1,6 +1,6 @@
-# Computer Vision Practice
+# Computer Vision Lab
 
-2023년 부산대학교 4-1 컴퓨터비전개론 실습입니다.
+Lab repository of `Introduction of Computer Vision` at Pusan Nat'l Univ. fourth grade in 2023.
 
 ## Contents
 * [Image Processing with PIL](https://github.com/jagaldol/computer-vision-4-1/tree/main/1.%20image%20processing%20with%20PIL)
