@@ -9,6 +9,7 @@ Lab repository of `Introduction of Computer Vision` at Pusan Nat'l Univ. fourth 
 * [RANSAC](https://github.com/jagaldol/computer-vision-4-1/tree/main/4.%20RANSAC)
 * [Panorama Stitching](https://github.com/jagaldol/computer-vision/tree/main/5.%20Panorama%20Stitching)
 * [Epipolar Geometry](https://github.com/jagaldol/computer-vision-4-1/tree/main/6.%20Epipolar%20Geometry)
+* [Convolutional Neural Networks](https://github.com/jagaldol/computer-vision-4-1/tree/main/7.%20Convolutional%20Neural%20Networks)
 
 ## Installation
 > using python 3.11.2
