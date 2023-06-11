@@ -4,9 +4,6 @@
 
 Epipolar Geometry에서 epipole을 찾고, epipole을 이용하여 epipolar line을 그린다.
 
-> main.py는 과제 채점 완료 후 업로드 예정
-
-
 <p align="center">
     <img src="./result_images/warrior_result.png?raw=true"/>
 </p>
